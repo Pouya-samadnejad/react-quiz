@@ -70,13 +70,11 @@ function reducer(state, action) {
       throw new Error("Unknown Error");
   }
 }
-
 function QuizProvider({ children }) {
   const [
     { questions, status, index, answer, points, highscore, secondsRemaining },
     dispatch,
   ] = useReducer(reducer, initalState);
-
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
@@ -90,8 +88,8 @@ function QuizProvider({ children }) {
   );
   return (
     <QuizContext.Provider
-      value={
-        (questions,
+      value={{
+        questions,
         status,
         index,
         answer,
@@ -100,8 +98,8 @@ function QuizProvider({ children }) {
         secondsRemaining,
         numQustions,
         maxPossiblePoint,
-        dispatch)
-      }
+        dispatch,
+      }}
     >
       {children}
     </QuizContext.Provider>
